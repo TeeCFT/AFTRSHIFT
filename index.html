@@ -1,31 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AFTRSHIFT</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICEL!NK</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass: rgba(255, 255, 255, 0.08);
+            --blue-glow: #00e5ff;
+            --text: #ffffff;
+        }
 
-<style>
-body {
-  margin: 0;
-  height: 100vh;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(180deg, #0a192f 0%, #030303 100%);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text);
+        }
 
-/* Default = desktop */
-body {
-  background: url('desktop.png') no-repeat center center;
-  background-size: cover;
-}
+        .app-container {
+            width: 85%;
+            max-width: 360px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+        }
 
-/* Mobile version */
-@media (max-width: 768px) {
-  body {
-    background: url('mobile.png') no-repeat center center;
-    background-size: cover;
-  }
-}
-</style>
+        .mascot {
+            width: 180px;
+            margin: 0 auto 20px auto;
+            filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.3));
+        }
 
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--blue-glow);
+        }
+
+        .btn-main {
+            background: var(--blue-glow);
+            color: #000;
+            border: none;
+        }
+
+        .be-iceman {
+            margin-top: 10px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--blue-glow);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+    </style>
 </head>
 <body>
+
+    <div class="app-container">
+        <img src="cookie.png" class="mascot" alt="ICELINK">
+
+        <button class="btn btn-main">LOGIN</button>
+        <button class="btn">SIGN UP</button>
+        <button class="btn">CONTINUE WITH GOOGLE</button>
+
+        <a href="#" class="be-iceman">BE ICEMAN ❄️</a>
+    </div>
+
 </body>
 </html>
