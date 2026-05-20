@@ -49,14 +49,40 @@
 </head>
 <body>
 
-<div class="app-wrapper">
-    <div class="overlay">
-        <button class="btn btn-main" onclick="openModal()">LOGIN</button>
-        <button class="btn btn-sub" onclick="openModal()">SIGN UP</button>
-        <button class="btn btn-sub" onclick="handleGoogle()">CONTINUE WITH GOOGLE</button>
-        <button class="btn" style="background:transparent; color:#00e5ff;" onclick="openModal()">BE ICEMAN ❄️</button>
+<div className="relative h-screen w-full overflow-hidden">
+  {/* Full Screen Image Layer */}
+  <img 
+    src="1000668226.png" 
+    alt="ICELINK" 
+    className="absolute inset-0 h-full w-full object-cover" 
+  />
+
+  {/* Button Placement Layer */}
+  <div className="absolute inset-x-0 bottom-12 flex flex-col items-center gap-4 px-6">
+    
+    {/* Top Row: LOGIN + SIGNUP */}
+    <div className="flex w-full max-w-[360px] gap-3">
+      <MetalButton className="flex-1" variant="default" onClick={openModal}>LOGIN</MetalButton>
+      <MetalButton className="flex-1" variant="default" onClick={openModal}>SIGNUP</MetalButton>
     </div>
+
+    {/* Middle Row: GOOGLE */}
+    <div className="w-full max-w-[360px]">
+      <MetalButton className="w-full" variant="primary" onClick={handleGoogle}>
+        CONTINUE WITH GOOGLE
+      </MetalButton>
+    </div>
+
+    {/* Bottom Row: BE ICEMAN */}
+    <div className="w-full max-w-[360px]">
+      <MetalButton className="w-full bg-transparent border border-white/20" onClick={openModal}>
+        BE ICEMAN ❄️
+      </MetalButton>
+    </div>
+    
+  </div>
 </div>
+
 
 <div id="formModal" class="modal">
     <h2 style="color:#fff;">Form</h2>
