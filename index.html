@@ -4,87 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ICEL!NK</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        :root {
-            --glass: rgba(255, 255, 255, 0.08);
-            --blue-glow: #00e5ff;
-            --text: #ffffff;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
+        body, html { margin: 0; height: 100%; font-family: 'Inter', sans-serif; background: #030303; }
+        
+        /* The container holds the image and the button layer */
+        .app-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
             height: 100vh;
-            background: linear-gradient(180deg, #0a192f 0%, #030303 100%);
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--text);
+            margin: 0 auto;
+            background: url('cookie.png') no-repeat center center;
+            background-size: cover;
         }
 
-        .app-container {
-            width: 85%;
-            max-width: 360px;
+        /* The layer on top of the image */
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 40px 20px 60px;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            text-align: center;
-        }
-
-        .mascot {
-            width: 180px;
-            margin: 0 auto 20px auto;
-            filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.3));
+            background: linear-gradient(transparent, rgba(3, 3, 3, 0.95));
         }
 
         .btn {
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            color: white;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            width: 100%; padding: 16px; border-radius: 12px; border: none;
+            font-weight: 600; cursor: pointer; transition: 0.3s;
         }
-
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: var(--blue-glow);
+        .btn-main { background: #00e5ff; color: #000; }
+        .btn-sub { background: rgba(255,255,255,0.1); color: #fff; backdrop-filter: blur(10px); }
+        
+        /* Slide-up Form */
+        .modal {
+            position: fixed; bottom: -100%; left: 0; width: 100%; height: 80%;
+            background: #111; border-radius: 20px 20px 0 0; transition: 0.4s;
+            padding: 20px; z-index: 100;
         }
-
-        .btn-main {
-            background: var(--blue-glow);
-            color: #000;
-            border: none;
-        }
-
-        .be-iceman {
-            margin-top: 10px;
-            font-size: 12px;
-            letter-spacing: 2px;
-            color: var(--blue-glow);
-            text-decoration: none;
-            text-transform: uppercase;
-        }
+        .modal.active { bottom: 0; }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <img src="cookie.png" class="mascot" alt="ICELINK">
-
-        <button class="btn btn-main">LOGIN</button>
-        <button class="btn">SIGN UP</button>
-        <button class="btn">CONTINUE WITH GOOGLE</button>
-
-        <a href="#" class="be-iceman">BE ICEMAN ❄️</a>
+<div class="app-wrapper">
+    <div class="overlay">
+        <button class="btn btn-main" onclick="openModal()">LOGIN</button>
+        <button class="btn btn-sub" onclick="openModal()">SIGN UP</button>
+        <button class="btn btn-sub" onclick="handleGoogle()">CONTINUE WITH GOOGLE</button>
+        <button class="btn" style="background:transparent; color:#00e5ff;" onclick="openModal()">BE ICEMAN ❄️</button>
     </div>
+</div>
 
+<div id="formModal" class="modal">
+    <h2 style="color:#fff;">Form</h2>
+    <button onclick="closeModal()">CLOSE</button>
+</div>
+
+<script>
+    // Supabase Init
+    const supabase = supabase.createClient('YOUR_URL', 'YOUR_KEY');
+
+    // Remember User
+    window.onload = () => {
+        const user = localStorage.getItem('icelink_user');
+        if(user) console.log("Welcome back, Iceman");
+    };
+
+    function openModal() { document.getElementById('formModal').classList.add('active'); }
+    function closeModal() { document.getElementById('formModal').classList.remove('active'); }
+    
+    async function handleGoogle() {
+        const { data, error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
+        if(!error) localStorage.setItem('icelink_user', JSON.stringify(data));
+    }
+</script>
 </body>
 </html>
